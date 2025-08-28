@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenNest Store - منتجات صديقة للبيئة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4a7c59;
+      --secondary-color: #8a9a5b;
+      --accent-color: #c8ad7e;
+      --light-color: #f5f5dc;
+      --dark-color: #333;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+    
+    /* التصميم العام */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* الهيدر */
+    header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 1rem 0;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      margin: 0;
+    }
+    
+    /* شريط التنقل */
+    nav {
+      background-color: var(--accent-color);
+      padding: 0.8rem 0;
+      box-shadow: var(--shadow);
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-color);
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover, .nav-links a.active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    /* الأقسام العامة */
+    section {
+      padding: 3rem 0;
+      display: none;
+    }
+    
+    section.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--accent-color);
+    }
+    
+    /* قسم الهوم */
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1616401784845-7c3bfaad5f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+    
+    /* قسم المنتجات */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .product-card {
+      background-color: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    .product-img {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+    }
+    
+    .product-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .product-price {
+      font-weight: bold;
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .color-options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .color-option {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+    
+    .color-option.active {
+      border-color: var(--primary-color);
+    }
+    
+    .add-to-cart {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: var(--accent-color);
+      color: var(--dark-color);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: bold;
+    }
+    
+    .add-to-cart:hover {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    /* قسم من نحن */
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .about-img {
+      height: 300px;
+      border-radius: 8px;
+      background: url('https://images.unsplash.com/photo-1600565193345-b5a5a5c341d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    /* قسم الاتصال */
+    .contact-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .contact-icon {
+      background-color: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .contact-form {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    /* قسم التقييم */
+    .survey-section {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      margin: 2rem 0;
+    }
+    
+    .survey-intro {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .survey-intro p {
+      color: var(--dark-color);
+      margin-bottom: 1rem;
+    }
+    
+    /* الفوتر */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+      color: white;
+      padding: 2rem 0;
+      text-align: center;
+    }
+    
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    
+    .social-links a {
+      color: white;
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .social-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* سلة التسوق */
+    .cart-icon {
+      position: relative;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--accent-color);
+      color: var(--dark-color);
+      font-size: 0.8rem;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* iframe styling */
+    .survey-iframe {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    
+    /* رسوميات متحركة */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* تصميم متجاوب */
+    @media (max-width: 992px) {
+      .about-content, .contact-content {
+        grid-template-columns: 1fr;
+      }
+      
+      .survey-iframe {
+        height: 1200px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      
+      .hero h2 {
+        font-size: 2rem;
+      }
+      
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+      
+      .survey-iframe {
+        height: 1000px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .survey-iframe {
+        height: 800px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        <h1>GreenNest</h1>
+      </div>
+      <div class="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container">
+      <ul class="nav-links">
+        <li><a href="#home" class="active" data-section="home">الرئيسية</a></li>
+        <li><a href="#products" data-section="products">المنتجات</a></li>
+        <li><a href="#about" data-section="about">من نحن</a></li>
+        <li><a href="#survey" data-section="survey">تقييم العملاء</a></li>
+        <li><a href="#contact" data-section="contact">اتصل بنا</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section id="home" class="active">
+      <div class="hero">
+        <h2>مرحباً بكم في GreenNest</h2>
+        <p>نساعدك على العيش بطريقة صديقة للبيئة مع منتجاتنا المستدامة والطبيعية التي تلبي احتياجاتك اليومية.</p>
+        <a href="#products" class="btn" data-section="products">استكشف منتجاتنا</a>
+      </div>
+    </section>
+
+    <section id="products">
+      <h2 class="section-title">منتجاتنا</h2>
+      <div class="products-grid">
+        <!-- سيتم إضافة المنتجات ديناميكياً باستخدام JavaScript -->
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">من نحن</h2>
+      <div class="about-content">
+        <div class="about-img"></div>
+        <div class="about-text">
+          <p>في GreenNest، نؤمن بالحفاظ على البيئة من خلال تقديم منتجات مفيدة ولطيفة مع كوكبنا. كل منتج تجده هنا تم اختياره بعناية لتقليل النفايات البلاستيكية وتعزيز نمط حياة أكثر اخضراراً.</p>
+          <p>معاً يمكننا جعل الحياة الخضراء بسيطة وجميلة وفي متناول الجميع. نحرص على أن تكون جميع منتجاتنا صديقة للبيئة وعالية الجودة لتلبية توقعاتكم.</p>
+          <p>انضم إلى رحلتنا نحو عالم أكثر استدامة!</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="survey">
+      <h2 class="section-title">تقييم العملاء</h2>
+      <div class="survey-section">
+        <div class="survey-intro">
+          <h3>شاركنا رأيك!</h3>
+          <p>نسعى دائماً لتحسين خدماتنا ومنتجاتنا. رأيك مهم جداً لنا ويساعدنا على تقديم الأفضل لك.</p>
+          <p>يرجى تعبئة هذا الاستبيان البسيط لتقييم تجربتك مع متجر GreenNest.</p>
+        </div>
+        
+        <!-- هنا يتم تضمين استبيان Google Forms -->
+        <iframe class="survey-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLScaaQrF5UvQoZDAaWaQkLlQ8gWig0rssHdGP0Hbr9xz464erQ/viewform?embedded=true" height="1755" frameborder="0" marginheight="0" marginwidth="0">
+          جارٍ التحميل…
+        </iframe>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">اتصل بنا</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div>
+              <h3>العنوان</h3>
+              <p>الصفا، جدة، المملكة العربية السعودية</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>
+              <h3> الهاتف</h3>
+              <p>+966-500-000-000</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>
+              <h3>البريد الإلكتروني</h3>
+              <p>hello@greennest.store</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div>
+              <h3>ساعات العمل</h3>
+              <p>الأحد - الخميس: 9 صباحاً - 5 مساءً</p>
+              <p>الجمعة والسبت: مغلق</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">الاسم</label>
+              <input type="text" id="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="email">البريد الإلكتروني</label>
+              <input type="email" id="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="message">الرسالة</label>
+              <textarea id="message" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn">إرسال الرسالة</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-content">
+      <div class="social-links">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>جميع الحقوق محفوظة &copy; 2025 GreenNest</p>
+    </div>
+  </footer>
+
+  <script>
+    // بيانات المنتجات مع الصور
+    const products = [
+      { id: 1, name: "فرشاة أسنان من الخيزران", price: 15, image:"images/teeth.jpg" },
+      { id: 2, name: "فرشاة الجسم", price: 25, image: "images/broushbody.jpg" },
+      { id: 3, name: "كوب قهوة خشبي", price: 30, image: "images/cupwood.jpg" },
+      { id: 4, name: "صابون عضوي", price: 20, image: "images/sapon.jpg" },
+      { id: 5, name: "أكواب ورقية (مقاسات مختلفة)", price: 10, image: "images/cups.jpg" },
+
+      // 🟤⚪ كيس قماشي بلونين
+      { 
+        id: 6, 
+        name: "كيس قماشي متعدد الاستخدام", 
+        price: 18, 
+        colors: [
+          { color: "بني", image: "images/tootbagb.jpg" },
+          { color: "أبيض", image: "images/tootbagw.jpg" }
+        ]
+      },
+
+      { id: 7, name: "أكواب بيضاء وبنية", price: 14, image: "https://images.unsplash.com/photo-1602924440236-52f513c5ff6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" },
+      { id: 8, name: "نبتة صغيرة", price: 22, image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1772&q=80" },
+      { id: 9, name: "ورق كتابة طبيعي", price: 12, image: "images/papaer.jpg" },
+      { id: 10, name: "قناع طبيعي", price: 9, image: "images/maskw.jpg" },
+      { id: 11, name: "مشط خشبي", price: 17, image: "images/msht.jpg" },
+      { id: 12, name: "مجموعة أدوات مائدة خشبية", price: 19, image: "images/tools.jpg" },
+      { id: 13, name: "أكياس ورقية", price: 11, image: "images/kussp.jpg" },
+      { id: 14, name: "مناديل ورقية", price: 7, image: "images/manadil.jpg" }
+    ];
+
+    // عناصر DOM
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section');
+    const productsGrid = document.querySelector('.products-grid');
+    const cartCount = document.querySelector('.cart-count');
+    
+    // عربة التسوق
+    let cart = [];
+    
+    // تهيئة الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      // تحميل المنتجات
+      loadProducts();
+      
+      // إضافة أحداث للروابط
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const sectionId = this.getAttribute('data-section');
+          activateSection(sectionId);
+        });
+      });
+      
+      // إضافة حدث للنموذج
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('شكراً لك على رسالتك! سنتواصل معك قريباً.');
+        this.reset();
+      });
+    });
+    
+    // تحميل المنتجات
+    function loadProducts() {
+      productsGrid.innerHTML = '';
+      
+      products.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        
+        // معالجة خاصة للمنتجات التي تحتوي على ألوان متعددة
+        let imageHtml = '';
+        let colorOptionsHtml = '';
+        
+        if (product.colors) {
+          // إذا كان المنتج يحتوي على ألوان متعددة
+          imageHtml = `<div class="product-img" style="background-image: url('${product.colors[0].image}')" data-colors='${JSON.stringify(product.colors)}'></div>`;
+          
+          colorOptionsHtml = `<div class="color-options">`;
+          product.colors.forEach((colorObj, index) => {
+            const colorClass = colorObj.color === 'بني' ? 'brown' : 'white';
+            colorOptionsHtml += `<div class="color-option ${colorClass} ${index === 0 ? 'active' : ''}" 
+              data-image="${colorObj.image}" 
+              data-color="${colorObj.color}"
+              style="background-color: ${colorObj.color === 'بني' ? '#8B4513' : '#FFFFFF'}; border: 1px solid #ccc">
+            </div>`;
+          });
+          colorOptionsHtml += `</div>`;
+        } else {
+          // المنتج العادي بدون ألوان
+          imageHtml = `<div class="product-img" style="background-image: url('${product.image}')"></div>`;
+        }
+        
+        productCard.innerHTML = `
+          ${imageHtml}
+          <div class="product-info">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-price">${product.price} ر.س</p>
+            ${colorOptionsHtml}
+            <button class="add-to-cart" data-id="${product.id}">إضافة إلى السلة</button>
+          </div>
+        `;
+        
+        productsGrid.appendChild(productCard);
+      });
+      
+      // إضافة أحداث لأزرار إضافة إلى السلة
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+          const productId = parseInt(this.getAttribute('data-id'));
+          addToCart(productId);
+        });
+      });
+      
+      // إضافة أحداث لخيارات الألوان
+      document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function() {
+          // إزالة النشاط من جميع الخيارات في نفس المجموعة
+          const parent = this.parentElement;
+          parent.querySelectorAll('.color-option').forEach(opt => {
+            opt.classList.remove('active');
+          });
+          
+          // إضافة النشاط للخيار المحدد
+          this.classList.add('active');
+          
+          // تغيير الصورة المعروضة
+          const newImage = this.getAttribute('data-image');
+          const productImg = this.closest('.product-card').querySelector('.product-img');
+          productImg.style.backgroundImage = `url('${newImage}')`;
+        });
+      });
+    }
+    
+    // تفعيل قسم معين
+    function activateSection(sectionId) {
+      // إخفاء جميع الأقسام
+      sections.forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // إلغاء تفعيل جميع الروابط
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+      });
+      
+      // تفعيل القسم المحدد
+      document.getElementById(sectionId).classList.add('active');
+      
+      // تفعيل الرابط المحدد
+      document.querySelector(`.nav-links a[data-section="${sectionId}"]`).classList.add('active');
+      
+      // التمرير إلى الأعلى
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // إضافة منتج إلى السلة
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      
+      // إذا كان المنتج يحتوي على ألوان، نضيف اللون المحدد
+      let selectedProduct = {...product};
+      
+      if (product.colors) {
+        const productCard = document.querySelector(`.add-to-cart[data-id="${productId}"]`).closest('.product-card');
+        const selectedColorOption = productCard.querySelector('.color-option.active');
+        
+        if (selectedColorOption) {
+          const selectedColor = selectedColorOption.getAttribute('data-color');
+          const selectedImage = selectedColorOption.getAttribute('data-image');
+          
+          selectedProduct = {
+            ...product,
+            selectedColor: selectedColor,
+            image: selectedImage
+          };
+        }
+      }
+      
+      cart.push(selectedProduct);
+      updateCartCount();
+      
+      // رسالة تأكيد
+      alert(`تم إضافة ${selectedProduct.name} ${selectedProduct.selectedColor ? `(لون: ${selectedProduct.selectedColor})` : ''} إلى سلة التسوق!`);
+    }
+    
+    // تحديث عداد السلة
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+  </script>
+</body>
+</html>
